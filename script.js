@@ -90,7 +90,7 @@ class App {
     _getPosition() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this._LoadMap.bind(this), function () {
-                alert('could not allowed!')
+                
             })
         }
     }
