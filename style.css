@@ -46,12 +46,15 @@ a:visited {
   display: flex;
   flex-direction: column;
   order: 1;
+  height: 100vh;
+  overflow-y: scroll;
+
 }
 
 .logo {
-  height: 5.2rem;
+  height: 5rem;
   align-self: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .workouts {
@@ -164,7 +167,6 @@ a:visited {
 }
 
 .form__btn {
-  /* display: none; */
   padding: 10px;
   width: 100px;
   position: relative;
@@ -205,7 +207,7 @@ a:visited {
   background-color: var(--color-dark--1);
   color: var(--color-light--2);
   border-radius: 5px;
-  padding-right: 0.6rem;
+  padding-right: 0.8rem;
 }
 
 .leaflet-popup .leaflet-popup-content {
@@ -237,7 +239,8 @@ a:visited {
 }.DeletAll{
   padding: 10px;
   border-radius: 5px;
-  font-size: 30px;
+  font-size: 20px;
+  margin-top: 5px;
 }
 
 @media screen and (max-width: 1100px) {
@@ -267,10 +270,21 @@ a:visited {
   }
   .sidebar {
     order: 2;
+  height: 70vh;
+overflow-y: scroll;
     }
     .form__btn {
       position: relative;
       left: 70%;
       top: 8px;
+    }
+    .DeletAll{
+      padding: 5px;
+    }
+    .leaflet-popup .leaflet-popup-content {
+      font-size: 1rem;
+    }
+    .leaflet-popup .leaflet-popup-content-wrapper {
+      padding-right: 0.2rem;
     }
 }

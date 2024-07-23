@@ -203,8 +203,8 @@ class App {
                <span class="workout__unit">km</span>
              </div>
              <div class="workout__details">
-               <span class="workout__icon">⏱</span>
-               <span class="workout__value">${workout.duration}</span>
+               <span class="workout__icon">⏱ </span>
+               <span class="workout__value"> ${workout.duration}</span>
                <span class="workout__unit">min</span>
              </div>
              `
