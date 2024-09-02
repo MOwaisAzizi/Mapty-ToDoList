@@ -70,7 +70,6 @@ class App {
     workoutEl;
     workout;
     id = Date.now() + ''.slice(-10)
-    myWorkouts;
 
     constructor() {
         //get position
@@ -109,6 +108,8 @@ class App {
         this.#map.on('click', this._showForm.bind(this))
 
         //  after map loaded show the workoutMarker
+        console.log(this.#workouts);
+        
         this.#workouts.forEach(work => {
             this._RenderWorkoutMarker(work)
         })
@@ -116,6 +117,8 @@ class App {
 
 
     _showForm(mapE) {
+        console.log(mapE);
+        
         form.classList.remove('hidden')
         inputDistance.focus()
         this.#mapEvent = mapE
@@ -152,7 +155,7 @@ class App {
         if (type == 'running') {
             const cadence = +inputCadence.value
             //check for validation
-            if (!validInput(cadence, duration, destance) || !PositiveNumber(cadence, duration, destance)) return alert('All inputs shoud be positive numbers !')
+            if (!validInput(cadence, duration, destance) || !PositiveNumber(cadence, duration, destance)) return alert('All inputs should be positive numbers !')
             workout = new Running([lat, lng], destance, duration, cadence)
             workout.id = this.id
         }
@@ -173,7 +176,6 @@ class App {
         this._hiddenForm()
         //store data
         this._setLocalStorage()
-
     }
 
 
@@ -241,15 +243,16 @@ class App {
         form.insertAdjacentHTML('afterend', html)
     }
 
-
     _moveToPupup(e) {
-        this.workoutEl = e.target.closest('.workout')
 
+        if (!this.#map) return;
+        this.workoutEl = e.target.closest('.workout')
+         console.log('clicked');
+         console.log(this.workoutEL);
         //not click on workout table
         if (!this.workoutEl) return;
 
         const workout = this.#workouts.find(work => work.id === this.workoutEl.dataset.id)
-        console.log(this.workoutEl);
 
         this.#map.setView(workout.coords, 13, {
             Animation: true,
@@ -277,7 +280,6 @@ class App {
 
 
     reset() {
-        console.log('click delete all');
         localStorage.removeItem('workouts')
         location.reload()
     }
