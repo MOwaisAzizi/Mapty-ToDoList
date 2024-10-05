@@ -13,6 +13,8 @@ const deletAllbtn = document.querySelector('.DeletAll');
 const deletbtn = document.querySelector('.btn-delete');
 const editbtn = document.querySelector('.btn-edite');
 const SumbitBtn = document.querySelector('.form__btn');
+
+
 let workout;
 
 alert('Click on the map to start adding note')
@@ -80,7 +82,7 @@ class App {
         form.addEventListener('submit', this._newWorkout.bind(this))
         inputType.addEventListener('change', this._toggleElevationField)
         containerWorkouts.addEventListener('click', this._moveToPupup.bind(this))
-        // deletbtn.addEventListener('click',this._deletList.bind(this))
+        // delet_btn?.addEventListener('click',this._deletList.bind(this))
         // editbtn.addEventListener('click',this._editbtn.bind(this))
         deletAllbtn.addEventListener('click', this.reset.bind(this))
 
@@ -89,6 +91,7 @@ class App {
     _getPosition() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this._LoadMap.bind(this), function () {
+          alert('Could not get your position');
                 
             })
         }
@@ -108,7 +111,6 @@ class App {
         this.#map.on('click', this._showForm.bind(this))
 
         //  after map loaded show the workoutMarker
-        console.log(this.#workouts);
         
         this.#workouts.forEach(work => {
             this._RenderWorkoutMarker(work)
@@ -117,7 +119,6 @@ class App {
 
 
     _showForm(mapE) {
-        console.log(mapE);
         
         form.classList.remove('hidden')
         inputDistance.focus()
@@ -221,7 +222,8 @@ class App {
             <span class="workout__icon">🦶🏼</span>
             <span class="workout__value">${workout.cadence}</span>
             <span class="workout__unit">spm</span>
-          </div>
+            </div>
+
                 `
         }
         if (workout.type === 'cycling') {
@@ -237,19 +239,17 @@ class App {
                 <span class="workout__unit">m</span>
               </div>
             </div>
-
                 `
         }
         form.insertAdjacentHTML('afterend', html)
     }
 
     _moveToPupup(e) {
-
+  
+    if(e.target.className=='delet') this._deletList()
+    
         if (!this.#map) return;
         this.workoutEl = e.target.closest('.workout')
-         console.log('clicked');
-         console.log(this.workoutEL);
-        //not click on workout table
         if (!this.workoutEl) return;
 
         const workout = this.#workouts.find(work => work.id === this.workoutEl.dataset.id)
@@ -268,6 +268,7 @@ class App {
     }
 
     _getStorageData() {
+        
         const data = JSON.parse(localStorage.getItem('workouts'))
 
         if (!data) return;
@@ -278,6 +279,14 @@ class App {
         })
     }
 
+    // _deletList(e){
+    //     console.log('clicked Delet');
+    //     const deletWorkout = this.#workouts.find(work => work.id === this.workoutEl.dataset.id)
+    //     const update = this.#workouts.filter(workout=>workout.coords[0]!==deletWorkout.coords[0])
+    //     localStorage.setItem('workouts', JSON.stringify(update))
+    //     this.#workouts = update
+        
+    // }
 
     reset() {
         localStorage.removeItem('workouts')
